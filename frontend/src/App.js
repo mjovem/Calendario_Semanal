@@ -220,7 +220,7 @@ const TaskModal = ({ isOpen, onClose, task, onSave, projects, sprints }) => {
       <div className="bg-white rounded-2xl p-6 w-full max-w-md mx-4 max-h-[90vh] overflow-y-auto">
         <div className="flex justify-between items-center mb-4">
           <h3 className="text-xl font-semibold text-gray-900">
-            {task ? 'Edit Task' : 'Create Task'}
+            {task ? 'Editar Tarefa' : 'Criar Tarefa'}
           </h3>
           <button 
             onClick={onClose}
