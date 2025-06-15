@@ -51,36 +51,32 @@ const TaskCard = ({ task, onEdit, onDelete, onStatusChange, onDragStart, isDragg
 
   return (
     <div 
-      className={`task-card p-4 mb-3 bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-all w-full ${
+      className={`task-card p-3 mb-2 bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-all ${
         isDraggable ? 'cursor-move hover:scale-105' : ''
       }`}
       draggable={isDraggable}
       onDragStart={handleDragStart}
     >
       {/* Header with title and action buttons */}
-      <div className="flex items-start gap-3 mb-3">
-        {isDraggable && (
-          <div className="flex-shrink-0 mt-1">
-            <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <div className="flex justify-between items-start mb-2">
+        <div className="flex items-center gap-2 flex-1 min-w-0">
+          {isDraggable && (
+            <svg className="w-3 h-3 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
             </svg>
-          </div>
-        )}
-        
-        <div className="flex-1 min-w-0">
-          <h4 className="font-semibold text-gray-900 text-sm leading-tight break-words">{task.title}</h4>
+          )}
+          <h4 className="font-medium text-gray-900 text-sm truncate">{task.title}</h4>
         </div>
         
-        <div className="flex gap-1 flex-shrink-0">
+        <div className="flex gap-1 flex-shrink-0 ml-2">
           <button 
             onClick={(e) => {
               e.stopPropagation();
               onEdit(task);
             }}
-            className="p-1.5 text-purple-600 hover:text-purple-800 hover:bg-purple-50 rounded-md transition-colors"
-            title="Edit task"
+            className="p-1 text-purple-600 hover:text-purple-800 hover:bg-purple-50 rounded transition-colors"
           >
-            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
             </svg>
           </button>
@@ -89,10 +85,9 @@ const TaskCard = ({ task, onEdit, onDelete, onStatusChange, onDragStart, isDragg
               e.stopPropagation();
               onDelete(task.id);
             }}
-            className="p-1.5 text-red-600 hover:text-red-800 hover:bg-red-50 rounded-md transition-colors"
-            title="Delete task"
+            className="p-1 text-red-600 hover:text-red-800 hover:bg-red-50 rounded transition-colors"
           >
-            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
             </svg>
           </button>
@@ -101,45 +96,42 @@ const TaskCard = ({ task, onEdit, onDelete, onStatusChange, onDragStart, isDragg
       
       {/* Description */}
       {task.description && (
-        <div className="mb-3">
-          <p className="text-xs text-gray-600 line-clamp-2 leading-relaxed break-words">{task.description}</p>
-        </div>
+        <p className="text-xs text-gray-600 mb-2 line-clamp-2">{task.description}</p>
       )}
       
       {/* Priority and Status badges */}
-      <div className="flex flex-wrap gap-2 mb-3">
-        <span className={`px-2 py-1 rounded-full text-xs font-medium border whitespace-nowrap ${priorityColors[task.priority]}`}>
-          {task.priority.charAt(0).toUpperCase() + task.priority.slice(1)}
+      <div className="flex gap-1 mb-2">
+        <span className={`px-2 py-1 rounded-full text-xs font-medium border ${priorityColors[task.priority]}`}>
+          {task.priority.charAt(0).toUpperCase()}
         </span>
-        <span className={`px-2 py-1 rounded-full text-xs font-medium border whitespace-nowrap ${statusColors[task.status]}`}>
-          {task.status.replace('_', ' ').split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
+        <span className={`px-2 py-1 rounded-full text-xs font-medium border ${statusColors[task.status]}`}>
+          {task.status === 'in_progress' ? 'Progress' : task.status.charAt(0).toUpperCase() + task.status.slice(1)}
         </span>
       </div>
       
-      {/* Status selector and due date */}
-      <div className="space-y-2">
-        <select 
-          value={task.status} 
-          onChange={(e) => {
-            e.stopPropagation();
-            onStatusChange(task.id, e.target.value);
-          }}
-          className="w-full text-xs border rounded-md px-2 py-1.5 bg-white focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-        >
-          <option value="todo">To Do</option>
-          <option value="in_progress">In Progress</option>
-          <option value="review">Review</option>
-          <option value="done">Done</option>
-        </select>
-        
-        {task.due_date && (
-          <div className="text-center">
-            <span className="text-xs text-gray-500 bg-gray-50 px-2 py-1 rounded-md inline-block">
-              Due: {formatDate(task.due_date)}
-            </span>
-          </div>
-        )}
-      </div>
+      {/* Status selector */}
+      <select 
+        value={task.status} 
+        onChange={(e) => {
+          e.stopPropagation();
+          onStatusChange(task.id, e.target.value);
+        }}
+        className="w-full text-xs border rounded-md px-2 py-1 bg-white focus:ring-2 focus:ring-purple-500 focus:border-transparent mb-2"
+      >
+        <option value="todo">To Do</option>
+        <option value="in_progress">In Progress</option>
+        <option value="review">Review</option>
+        <option value="done">Done</option>
+      </select>
+      
+      {/* Due date */}
+      {task.due_date && (
+        <div className="text-center">
+          <span className="text-xs text-gray-500 bg-gray-50 px-2 py-1 rounded text-center block">
+            Due: {formatDate(task.due_date)}
+          </span>
+        </div>
+      )}
     </div>
   );
 };
