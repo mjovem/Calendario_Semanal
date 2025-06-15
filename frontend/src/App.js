@@ -829,7 +829,7 @@ function App() {
   };
 
   const handleDeleteTask = async (taskId) => {
-    if (!window.confirm('Are you sure you want to delete this task?')) return;
+    if (!window.confirm('Tem certeza de que deseja excluir esta tarefa?')) return;
     
     try {
       setLoading(true);
