@@ -389,57 +389,115 @@ const WeekCalendar = ({ tasks, onTaskEdit, onTaskDelete, onTaskStatusChange, onT
         </div>
       </div>
 
-      <div className="grid grid-cols-7 gap-8 overflow-x-auto">
-        {weekDates.map((date, index) => {
-          const dayTasks = getTasksForDate(date);
-          const isToday = date.toDateString() === new Date().toDateString();
-          
-          return (
-            <div 
-              key={index} 
-              className={`calendar-day p-6 rounded-2xl border-2 min-h-[500px] min-w-[280px] transition-all ${
-                isToday ? 'border-purple-300 bg-purple-50' : 'border-gray-200 bg-gray-50'
-              } ${draggedTask ? 'hover:border-purple-400 hover:bg-purple-100' : ''}`}
-              onDragOver={handleDragOver}
-              onDrop={(e) => handleDrop(e, date)}
-            >
-              <div className="font-semibold text-gray-900 mb-6 text-center">
-                <div className="text-sm text-gray-600 mb-2 font-medium">
-                  {date.toLocaleDateString('en-US', { weekday: 'long' })}
-                </div>
-                <div className={`text-3xl font-bold ${isToday ? 'text-purple-600' : 'text-gray-900'} mb-1`}>
-                  {date.getDate()}
-                </div>
-                <div className="text-sm text-gray-500">
-                  {date.toLocaleDateString('en-US', { month: 'short' })}
-                </div>
-              </div>
-              
-              <div className="space-y-4">
-                {dayTasks.length === 0 && (
-                  <div className="text-center py-12 text-gray-400">
-                    <svg className="w-10 h-10 mx-auto mb-3 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                    </svg>
-                    <p className="text-sm font-medium">Drop tasks here</p>
-                    <p className="text-xs text-gray-400 mt-1">or create new ones</p>
+      {/* Desktop view */}
+      <div className="hidden xl:block">
+        <div className="grid grid-cols-7 gap-4">
+          {weekDates.map((date, index) => {
+            const dayTasks = getTasksForDate(date);
+            const isToday = date.toDateString() === new Date().toDateString();
+            
+            return (
+              <div 
+                key={index} 
+                className={`calendar-day p-4 rounded-2xl border-2 min-h-[500px] transition-all ${
+                  isToday ? 'border-purple-300 bg-purple-50' : 'border-gray-200 bg-gray-50'
+                } ${draggedTask ? 'hover:border-purple-400 hover:bg-purple-100' : ''}`}
+                onDragOver={handleDragOver}
+                onDrop={(e) => handleDrop(e, date)}
+              >
+                <div className="font-semibold text-gray-900 mb-4 text-center">
+                  <div className="text-sm text-gray-600 mb-2 font-medium">
+                    {date.toLocaleDateString('en-US', { weekday: 'long' })}
                   </div>
-                )}
-                {dayTasks.map(task => (
-                  <TaskCard 
-                    key={task.id} 
-                    task={task} 
-                    onEdit={onTaskEdit}
-                    onDelete={onTaskDelete}
-                    onStatusChange={onTaskStatusChange}
-                    onDragStart={handleDragStart}
-                    isDraggable={true}
-                  />
-                ))}
+                  <div className={`text-2xl font-bold ${isToday ? 'text-purple-600' : 'text-gray-900'} mb-1`}>
+                    {date.getDate()}
+                  </div>
+                  <div className="text-xs text-gray-500">
+                    {date.toLocaleDateString('en-US', { month: 'short' })}
+                  </div>
+                </div>
+                
+                <div className="space-y-3">
+                  {dayTasks.length === 0 && (
+                    <div className="text-center py-8 text-gray-400">
+                      <svg className="w-8 h-8 mx-auto mb-2 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                      </svg>
+                      <p className="text-sm font-medium">Drop tasks here</p>
+                    </div>
+                  )}
+                  {dayTasks.map(task => (
+                    <TaskCard 
+                      key={task.id} 
+                      task={task} 
+                      onEdit={onTaskEdit}
+                      onDelete={onTaskDelete}
+                      onStatusChange={onTaskStatusChange}
+                      onDragStart={handleDragStart}
+                      isDraggable={true}
+                    />
+                  ))}
+                </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Tablet and Mobile view */}
+      <div className="xl:hidden">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {weekDates.map((date, index) => {
+            const dayTasks = getTasksForDate(date);
+            const isToday = date.toDateString() === new Date().toDateString();
+            
+            return (
+              <div 
+                key={index} 
+                className={`calendar-day p-6 rounded-2xl border-2 min-h-[400px] transition-all ${
+                  isToday ? 'border-purple-300 bg-purple-50' : 'border-gray-200 bg-gray-50'
+                } ${draggedTask ? 'hover:border-purple-400 hover:bg-purple-100' : ''}`}
+                onDragOver={handleDragOver}
+                onDrop={(e) => handleDrop(e, date)}
+              >
+                <div className="font-semibold text-gray-900 mb-6 text-center">
+                  <div className="text-base text-gray-600 mb-2 font-medium">
+                    {date.toLocaleDateString('en-US', { weekday: 'long' })}
+                  </div>
+                  <div className={`text-3xl font-bold ${isToday ? 'text-purple-600' : 'text-gray-900'} mb-1`}>
+                    {date.getDate()}
+                  </div>
+                  <div className="text-sm text-gray-500">
+                    {date.toLocaleDateString('en-US', { month: 'short' })}
+                  </div>
+                </div>
+                
+                <div className="space-y-4">
+                  {dayTasks.length === 0 && (
+                    <div className="text-center py-12 text-gray-400">
+                      <svg className="w-10 h-10 mx-auto mb-3 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                      </svg>
+                      <p className="text-sm font-medium">Drop tasks here</p>
+                      <p className="text-xs text-gray-400 mt-1">or create new ones</p>
+                    </div>
+                  )}
+                  {dayTasks.map(task => (
+                    <TaskCard 
+                      key={task.id} 
+                      task={task} 
+                      onEdit={onTaskEdit}
+                      onDelete={onTaskDelete}
+                      onStatusChange={onTaskStatusChange}
+                      onDragStart={handleDragStart}
+                      isDraggable={true}
+                    />
+                  ))}
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </div>
       
       <div className="mt-6 text-center">
