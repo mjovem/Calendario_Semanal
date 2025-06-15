@@ -51,25 +51,25 @@ const TaskCard = ({ task, onEdit, onDelete, onStatusChange, onDragStart, isDragg
 
   return (
     <div 
-      className={`task-card p-3 mb-2 bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-all ${
+      className={`task-card p-4 mb-3 bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-all ${
         isDraggable ? 'cursor-move hover:scale-105' : ''
       }`}
       draggable={isDraggable}
       onDragStart={handleDragStart}
     >
-      <div className="flex justify-between items-start mb-2">
-        <div className="flex items-center gap-2 flex-1">
+      <div className="flex justify-between items-start mb-3">
+        <div className="flex items-start gap-2 flex-1">
           {isDraggable && (
-            <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-4 h-4 text-gray-400 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
             </svg>
           )}
-          <h4 className="font-medium text-gray-900 flex-1">{task.title}</h4>
+          <h4 className="font-semibold text-gray-900 flex-1 text-base leading-tight">{task.title}</h4>
         </div>
-        <div className="flex gap-1 ml-2">
+        <div className="flex gap-1 ml-2 flex-shrink-0">
           <button 
             onClick={() => onEdit(task)}
-            className="text-purple-600 hover:text-purple-800 transition-colors"
+            className="text-purple-600 hover:text-purple-800 transition-colors p-1"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
@@ -77,7 +77,7 @@ const TaskCard = ({ task, onEdit, onDelete, onStatusChange, onDragStart, isDragg
           </button>
           <button 
             onClick={() => onDelete(task.id)}
-            className="text-red-600 hover:text-red-800 transition-colors"
+            className="text-red-600 hover:text-red-800 transition-colors p-1"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -87,23 +87,23 @@ const TaskCard = ({ task, onEdit, onDelete, onStatusChange, onDragStart, isDragg
       </div>
       
       {task.description && (
-        <p className="text-sm text-gray-600 mb-2 line-clamp-2">{task.description}</p>
+        <p className="text-sm text-gray-600 mb-3 line-clamp-2 leading-relaxed">{task.description}</p>
       )}
       
-      <div className="flex flex-wrap gap-2 mb-2">
-        <span className={`px-2 py-1 rounded-full text-xs font-medium border ${priorityColors[task.priority]}`}>
+      <div className="flex flex-wrap gap-2 mb-3">
+        <span className={`px-3 py-1 rounded-full text-xs font-semibold border ${priorityColors[task.priority]}`}>
           {task.priority.toUpperCase()}
         </span>
-        <span className={`px-2 py-1 rounded-full text-xs font-medium border ${statusColors[task.status]}`}>
+        <span className={`px-3 py-1 rounded-full text-xs font-semibold border ${statusColors[task.status]}`}>
           {task.status.replace('_', ' ').toUpperCase()}
         </span>
       </div>
       
-      <div className="flex justify-between items-center">
+      <div className="flex flex-col gap-2">
         <select 
           value={task.status} 
           onChange={(e) => onStatusChange(task.id, e.target.value)}
-          className="text-sm border rounded-lg px-2 py-1 bg-white focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+          className="text-sm border rounded-lg px-3 py-2 bg-white focus:ring-2 focus:ring-purple-500 focus:border-transparent w-full"
         >
           <option value="todo">To Do</option>
           <option value="in_progress">In Progress</option>
@@ -112,7 +112,7 @@ const TaskCard = ({ task, onEdit, onDelete, onStatusChange, onDragStart, isDragg
         </select>
         
         {task.due_date && (
-          <span className="text-xs text-gray-500">
+          <span className="text-xs text-gray-500 text-center py-1">
             Due: {formatDate(task.due_date)}
           </span>
         )}
