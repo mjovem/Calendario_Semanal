@@ -652,7 +652,7 @@ const ProjectView = ({
                   onClick={() => setShowProjectForm(false)}
                   className="flex-1 px-4 py-2 text-gray-700 bg-gray-100 rounded-xl hover:bg-gray-200 transition-colors"
                 >
-                  Cancel
+                  Cancelar
                 </button>
                 <button
                   type="submit"
