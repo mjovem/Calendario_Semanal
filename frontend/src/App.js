@@ -614,7 +614,7 @@ const ProjectView = ({
       {showProjectForm && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white rounded-2xl p-6 w-full max-w-md mx-4">
-            <h3 className="text-xl font-semibold text-gray-900 mb-4">Create New Project</h3>
+            <h3 className="text-xl font-semibold text-gray-900 mb-4">Criar Novo Projeto</h3>
             <form onSubmit={handleCreateProject} className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Project Name *</label>
