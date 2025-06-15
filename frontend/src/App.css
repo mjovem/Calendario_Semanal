@@ -67,6 +67,9 @@
   border-radius: 0.75rem;
   transition: all 0.3s ease;
   border: 1px solid #e5e7eb;
+  overflow: hidden;
+  word-wrap: break-word;
+  position: relative;
 }
 
 .task-card:hover {
