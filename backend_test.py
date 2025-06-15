@@ -199,7 +199,7 @@ def test_sprint_crud():
         "description": "Updated sprint description",
         "project_id": test_project_id,
         "goal": "Updated goal",
-        "start_date": (datetime.now()).strftime("%Y-%m-%d"),
+        "start_date": datetime.now().strftime("%Y-%m-%d"),
         "end_date": (datetime.now() + timedelta(days=21)).strftime("%Y-%m-%d")
     }
     
