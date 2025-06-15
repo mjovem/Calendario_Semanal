@@ -62,6 +62,12 @@ class Task(BaseModel):
         json_encoders = {
             date: lambda v: v.isoformat() if v else None
         }
+    
+    def dict(self, *args, **kwargs):
+        d = super().dict(*args, **kwargs)
+        if d.get('due_date'):
+            d['due_date'] = d['due_date'].isoformat() if isinstance(d['due_date'], date) else d['due_date']
+        return d
 
 class TaskCreate(BaseModel):
     title: str
