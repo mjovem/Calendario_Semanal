@@ -321,8 +321,9 @@ const TaskModal = ({ isOpen, onClose, task, onSave, projects, sprints }) => {
   );
 };
 
-const WeekCalendar = ({ tasks, onTaskEdit, onTaskDelete, onTaskStatusChange }) => {
+const WeekCalendar = ({ tasks, onTaskEdit, onTaskDelete, onTaskStatusChange, onTaskDateChange }) => {
   const [currentWeek, setCurrentWeek] = useState(new Date());
+  const [draggedTask, setDraggedTask] = useState(null);
   const weekDates = getWeekDates(currentWeek);
 
   const getTasksForDate = (date) => {
@@ -336,52 +337,93 @@ const WeekCalendar = ({ tasks, onTaskEdit, onTaskDelete, onTaskStatusChange }) =
     setCurrentWeek(newDate);
   };
 
+  const handleDragStart = (e, task) => {
+    setDraggedTask(task);
+    e.dataTransfer.effectAllowed = 'move';
+  };
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+  };
+
+  const handleDrop = (e, targetDate) => {
+    e.preventDefault();
+    if (draggedTask) {
+      const newDueDate = targetDate.toISOString().split('T')[0];
+      if (draggedTask.due_date !== newDueDate) {
+        onTaskDateChange(draggedTask.id, newDueDate);
+      }
+      setDraggedTask(null);
+    }
+  };
+
+  const handleDragEnd = () => {
+    setDraggedTask(null);
+  };
+
   return (
-    <div className="week-calendar bg-white rounded-2xl p-6 shadow-sm border border-gray-200">
-      <div className="flex justify-between items-center mb-6">
-        <h2 className="text-2xl font-bold text-gray-900">Week Calendar</h2>
+    <div className="week-calendar bg-white rounded-2xl p-8 shadow-sm border border-gray-200">
+      <div className="flex justify-between items-center mb-8">
+        <h2 className="text-3xl font-bold text-gray-900">Week Calendar</h2>
         <div className="flex items-center gap-4">
           <button 
             onClick={() => navigateWeek(-1)}
-            className="p-2 text-gray-600 hover:text-purple-600 transition-colors"
+            className="p-3 text-gray-600 hover:text-purple-600 hover:bg-purple-50 rounded-xl transition-colors"
           >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
           </button>
-          <span className="text-lg font-medium text-gray-900">
+          <span className="text-xl font-medium text-gray-900 min-w-[200px] text-center">
             {weekDates[0].toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
           </span>
           <button 
             onClick={() => navigateWeek(1)}
-            className="p-2 text-gray-600 hover:text-purple-600 transition-colors"
+            className="p-3 text-gray-600 hover:text-purple-600 hover:bg-purple-50 rounded-xl transition-colors"
           >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
           </button>
         </div>
       </div>
 
-      <div className="grid grid-cols-7 gap-4">
+      <div className="grid grid-cols-7 gap-6">
         {weekDates.map((date, index) => {
           const dayTasks = getTasksForDate(date);
           const isToday = date.toDateString() === new Date().toDateString();
           
           return (
-            <div key={index} className={`calendar-day p-4 rounded-xl border-2 min-h-[200px] ${
-              isToday ? 'border-purple-300 bg-purple-50' : 'border-gray-200 bg-gray-50'
-            }`}>
-              <div className="font-semibold text-gray-900 mb-3 text-center">
-                <div className="text-sm text-gray-600">
-                  {date.toLocaleDateString('en-US', { weekday: 'short' })}
+            <div 
+              key={index} 
+              className={`calendar-day p-6 rounded-2xl border-2 min-h-[400px] transition-all ${
+                isToday ? 'border-purple-300 bg-purple-50' : 'border-gray-200 bg-gray-50'
+              } ${draggedTask ? 'hover:border-purple-400 hover:bg-purple-100' : ''}`}
+              onDragOver={handleDragOver}
+              onDrop={(e) => handleDrop(e, date)}
+            >
+              <div className="font-semibold text-gray-900 mb-4 text-center">
+                <div className="text-sm text-gray-600 mb-1">
+                  {date.toLocaleDateString('en-US', { weekday: 'long' })}
                 </div>
-                <div className={`text-lg ${isToday ? 'text-purple-600' : 'text-gray-900'}`}>
+                <div className={`text-2xl font-bold ${isToday ? 'text-purple-600' : 'text-gray-900'}`}>
                   {date.getDate()}
+                </div>
+                <div className="text-xs text-gray-500 mt-1">
+                  {date.toLocaleDateString('en-US', { month: 'short' })}
                 </div>
               </div>
               
-              <div className="space-y-2">
+              <div className="space-y-3">
+                {dayTasks.length === 0 && (
+                  <div className="text-center py-8 text-gray-400">
+                    <svg className="w-8 h-8 mx-auto mb-2 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                    </svg>
+                    <p className="text-sm">Drop tasks here</p>
+                  </div>
+                )}
                 {dayTasks.map(task => (
                   <TaskCard 
                     key={task.id} 
@@ -389,12 +431,20 @@ const WeekCalendar = ({ tasks, onTaskEdit, onTaskDelete, onTaskStatusChange }) =
                     onEdit={onTaskEdit}
                     onDelete={onTaskDelete}
                     onStatusChange={onTaskStatusChange}
+                    onDragStart={handleDragStart}
+                    isDraggable={true}
                   />
                 ))}
               </div>
             </div>
           );
         })}
+      </div>
+      
+      <div className="mt-6 text-center">
+        <p className="text-sm text-gray-500">
+          💡 <strong>Tip:</strong> Drag tasks between days to change their due dates
+        </p>
       </div>
     </div>
   );
