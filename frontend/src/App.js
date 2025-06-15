@@ -102,7 +102,7 @@ const TaskCard = ({ task, onEdit, onDelete, onStatusChange, onDragStart, isDragg
       {/* Priority and Status badges */}
       <div className="flex gap-1 mb-2">
         <span className={`px-2 py-1 rounded-full text-xs font-medium border ${priorityColors[task.priority]}`}>
-          {task.priority.charAt(0).toUpperCase()}
+          {task.priority.charAt(0).toUpperCase() + task.priority.slice(1)}
         </span>
         <span className={`px-2 py-1 rounded-full text-xs font-medium border ${statusColors[task.status]}`}>
           {task.status === 'in_progress' ? 'Progress' : task.status.charAt(0).toUpperCase() + task.status.slice(1)}
