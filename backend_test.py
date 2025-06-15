@@ -7,7 +7,7 @@ import sys
 import time
 
 # Get the backend URL from the frontend .env file
-BACKEND_URL = "https://6ec6f806-30d6-497e-958a-3e5b8d6a87a6.preview.emergentagent.com/api"
+BACKEND_URL = "https://a696e1ac-b4c0-4dd9-8dc9-b144dd107a91.preview.emergentagent.com/api"
 
 # Test data
 test_project = {
