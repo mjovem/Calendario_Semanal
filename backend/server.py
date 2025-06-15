@@ -8,7 +8,7 @@ from pathlib import Path
 from pydantic import BaseModel, Field
 from typing import List, Optional
 import uuid
-from datetime import datetime, date
+from datetime import datetime, date, time
 from enum import Enum
 
 ROOT_DIR = Path(__file__).parent
@@ -57,6 +57,11 @@ class Task(BaseModel):
     created_date: datetime = Field(default_factory=datetime.utcnow)
     updated_date: datetime = Field(default_factory=datetime.utcnow)
     story_points: Optional[int] = None
+    
+    class Config:
+        json_encoders = {
+            date: lambda v: v.isoformat() if v else None
+        }
 
 class TaskCreate(BaseModel):
     title: str
@@ -68,6 +73,11 @@ class TaskCreate(BaseModel):
     assigned_to: Optional[str] = None
     due_date: Optional[date] = None
     story_points: Optional[int] = None
+    
+    class Config:
+        json_encoders = {
+            date: lambda v: v.isoformat() if v else None
+        }
 
 class TaskUpdate(BaseModel):
     title: Optional[str] = None
@@ -79,6 +89,11 @@ class TaskUpdate(BaseModel):
     assigned_to: Optional[str] = None
     due_date: Optional[date] = None
     story_points: Optional[int] = None
+    
+    class Config:
+        json_encoders = {
+            date: lambda v: v.isoformat() if v else None
+        }
 
 class Project(BaseModel):
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
@@ -104,6 +119,19 @@ class Sprint(BaseModel):
     goal: Optional[str] = None
     created_date: datetime = Field(default_factory=datetime.utcnow)
     updated_date: datetime = Field(default_factory=datetime.utcnow)
+    
+    class Config:
+        json_encoders = {
+            date: lambda v: v.isoformat() if v else None
+        }
+    
+    def dict(self, *args, **kwargs):
+        d = super().dict(*args, **kwargs)
+        if d.get('start_date'):
+            d['start_date'] = d['start_date'].isoformat() if isinstance(d['start_date'], date) else d['start_date']
+        if d.get('end_date'):
+            d['end_date'] = d['end_date'].isoformat() if isinstance(d['end_date'], date) else d['end_date']
+        return d
 
 class SprintCreate(BaseModel):
     name: str
@@ -112,6 +140,11 @@ class SprintCreate(BaseModel):
     start_date: Optional[date] = None
     end_date: Optional[date] = None
     goal: Optional[str] = None
+    
+    class Config:
+        json_encoders = {
+            date: lambda v: v.isoformat() if v else None
+        }
 
 # Task endpoints
 @api_router.post("/tasks", response_model=Task)
