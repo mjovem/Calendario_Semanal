@@ -20,7 +20,7 @@ test_sprint = {
     "name": "Sprint 1",
     "description": "First sprint for testing",
     "goal": "Complete API testing",
-    "start_date": (datetime.now()).strftime("%Y-%m-%d"),
+    "start_date": datetime.now().strftime("%Y-%m-%d"),
     "end_date": (datetime.now() + timedelta(days=14)).strftime("%Y-%m-%d")
 }
 
