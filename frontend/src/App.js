@@ -406,7 +406,7 @@ const WeekCalendar = ({ tasks, onTaskEdit, onTaskDelete, onTaskStatusChange, onT
   return (
     <div className="week-calendar bg-white rounded-2xl p-8 shadow-sm border border-gray-200 mx-4 lg:mx-8">
       <div className="flex justify-between items-center mb-8">
-        <h2 className="text-3xl font-bold text-gray-900">Week Calendar</h2>
+        <h2 className="text-3xl font-bold text-gray-900">Calendário Semanal</h2>
         <div className="flex items-center gap-4">
           <button 
             onClick={() => navigateWeek(-1)}
