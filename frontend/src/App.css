@@ -90,12 +90,38 @@
 }
 
 .calendar-day {
-  border-radius: 0.75rem;
-  transition: all 0.2s ease;
+  border-radius: 1rem;
+  transition: all 0.3s ease;
+  min-height: 400px;
 }
 
 .calendar-day:hover {
   background-color: #faf5ff;
+}
+
+.calendar-day.drag-over {
+  border-color: #8b5cf6;
+  background-color: #f3e8ff;
+  transform: scale(1.02);
+}
+
+/* Task card drag styling */
+.task-card.dragging {
+  opacity: 0.5;
+  transform: rotate(5deg);
+}
+
+.task-card[draggable="true"]:hover {
+  cursor: move;
+  transform: translateY(-2px) scale(1.02);
+}
+
+/* Line clamp utility */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 /* Kanban styles */
