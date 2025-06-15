@@ -577,10 +577,10 @@ const ProjectView = ({
   };
 
   const columns = [
-    { id: 'todo', title: 'To Do', tasks: getTasksByStatus('todo') },
-    { id: 'in_progress', title: 'In Progress', tasks: getTasksByStatus('in_progress') },
-    { id: 'review', title: 'Review', tasks: getTasksByStatus('review') },
-    { id: 'done', title: 'Done', tasks: getTasksByStatus('done') }
+    { id: 'todo', title: 'A Fazer', tasks: getTasksByStatus('todo') },
+    { id: 'in_progress', title: 'Em Progresso', tasks: getTasksByStatus('in_progress') },
+    { id: 'review', title: 'Em Revisão', tasks: getTasksByStatus('review') },
+    { id: 'done', title: 'Concluído', tasks: getTasksByStatus('done') }
   ];
 
   return (
