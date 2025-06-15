@@ -417,7 +417,7 @@ const WeekCalendar = ({ tasks, onTaskEdit, onTaskDelete, onTaskStatusChange, onT
             </svg>
           </button>
           <span className="text-xl font-medium text-gray-900 min-w-[200px] text-center">
-            {weekDates[0].toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
+            {weekDates[0].toLocaleDateString('pt-BR', { month: 'long', year: 'numeric' })}
           </span>
           <button 
             onClick={() => navigateWeek(1)}
