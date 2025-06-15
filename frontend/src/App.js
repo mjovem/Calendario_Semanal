@@ -587,7 +587,7 @@ const ProjectView = ({
     <div className="project-view">
       <div className="flex justify-between items-center mb-6">
         <div className="flex items-center gap-4">
-          <h2 className="text-2xl font-bold text-gray-900">Projects</h2>
+          <h2 className="text-2xl font-bold text-gray-900">Projetos</h2>
           <button
             onClick={() => setShowProjectForm(true)}
             className="btn-primary px-4 py-2 text-sm"
@@ -595,7 +595,7 @@ const ProjectView = ({
             <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
             </svg>
-            New Project
+            Novo Projeto
           </button>
         </div>
         
