@@ -872,6 +872,7 @@ function App() {
                   onEdit={handleEditTask}
                   onDelete={handleDeleteTask}
                   onStatusChange={handleTaskStatusChange}
+                  isDraggable={false}
                 />
               ))}
             </div>
