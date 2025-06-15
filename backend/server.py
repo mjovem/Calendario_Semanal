@@ -267,6 +267,12 @@ async def update_sprint(sprint_id: str, sprint_update: SprintCreate):
         raise HTTPException(status_code=404, detail="Sprint not found")
     
     update_data = sprint_update.dict()
+    # Convert date objects to ISO format strings
+    if update_data.get('start_date'):
+        update_data['start_date'] = update_data['start_date'].isoformat() if isinstance(update_data['start_date'], date) else update_data['start_date']
+    if update_data.get('end_date'):
+        update_data['end_date'] = update_data['end_date'].isoformat() if isinstance(update_data['end_date'], date) else update_data['end_date']
+    
     update_data["updated_date"] = datetime.utcnow()
     
     await db.sprints.update_one({"id": sprint_id}, {"$set": update_data})
