@@ -42,11 +42,30 @@ const statusColors = {
 };
 
 // Components
-const TaskCard = ({ task, onEdit, onDelete, onStatusChange }) => {
+const TaskCard = ({ task, onEdit, onDelete, onStatusChange, onDragStart, isDraggable = false }) => {
+  const handleDragStart = (e) => {
+    if (onDragStart) {
+      onDragStart(e, task);
+    }
+  };
+
   return (
-    <div className="task-card p-3 mb-2 bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+    <div 
+      className={`task-card p-3 mb-2 bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-all ${
+        isDraggable ? 'cursor-move hover:scale-105' : ''
+      }`}
+      draggable={isDraggable}
+      onDragStart={handleDragStart}
+    >
       <div className="flex justify-between items-start mb-2">
-        <h4 className="font-medium text-gray-900 flex-1">{task.title}</h4>
+        <div className="flex items-center gap-2 flex-1">
+          {isDraggable && (
+            <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          )}
+          <h4 className="font-medium text-gray-900 flex-1">{task.title}</h4>
+        </div>
         <div className="flex gap-1 ml-2">
           <button 
             onClick={() => onEdit(task)}
@@ -68,7 +87,7 @@ const TaskCard = ({ task, onEdit, onDelete, onStatusChange }) => {
       </div>
       
       {task.description && (
-        <p className="text-sm text-gray-600 mb-2">{task.description}</p>
+        <p className="text-sm text-gray-600 mb-2 line-clamp-2">{task.description}</p>
       )}
       
       <div className="flex flex-wrap gap-2 mb-2">
