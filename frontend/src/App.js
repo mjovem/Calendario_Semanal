@@ -413,8 +413,8 @@ const WeekCalendar = ({ tasks, onTaskEdit, onTaskDelete, onTaskStatusChange, onT
       </div>
 
       {/* Desktop view */}
-      <div className="hidden xl:block">
-        <div className="grid grid-cols-7 gap-4">
+      <div className="hidden lg:block overflow-x-auto">
+        <div className="grid grid-cols-7 gap-4 min-w-[1400px]">
           {weekDates.map((date, index) => {
             const dayTasks = getTasksForDate(date);
             const isToday = date.toDateString() === new Date().toDateString();
@@ -422,7 +422,7 @@ const WeekCalendar = ({ tasks, onTaskEdit, onTaskDelete, onTaskStatusChange, onT
             return (
               <div 
                 key={index} 
-                className={`calendar-day p-4 rounded-2xl border-2 min-h-[500px] transition-all ${
+                className={`calendar-day p-4 rounded-2xl border-2 min-h-[500px] min-w-[190px] transition-all ${
                   isToday ? 'border-purple-300 bg-purple-50' : 'border-gray-200 bg-gray-50'
                 } ${draggedTask ? 'hover:border-purple-400 hover:bg-purple-100' : ''}`}
                 onDragOver={handleDragOver}
@@ -468,7 +468,7 @@ const WeekCalendar = ({ tasks, onTaskEdit, onTaskDelete, onTaskStatusChange, onT
       </div>
 
       {/* Tablet and Mobile view */}
-      <div className="xl:hidden">
+      <div className="lg:hidden">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {weekDates.map((date, index) => {
             const dayTasks = getTasksForDate(date);
