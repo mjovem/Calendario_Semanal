@@ -234,40 +234,40 @@ const TaskModal = ({ isOpen, onClose, task, onSave, projects, sprints }) => {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Title *</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Título *</label>
             <input
               type="text"
               required
               value={formData.title}
               onChange={(e) => setFormData({...formData, title: e.target.value})}
               className="input-field"
-              placeholder="Enter task title"
+              placeholder="Digite o título da tarefa"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Descrição</label>
             <textarea
               value={formData.description}
               onChange={(e) => setFormData({...formData, description: e.target.value})}
               className="input-field"
               rows="3"
-              placeholder="Enter task description"
+              placeholder="Digite a descrição da tarefa"
             />
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Priority</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Prioridade</label>
               <select
                 value={formData.priority}
                 onChange={(e) => setFormData({...formData, priority: e.target.value})}
                 className="input-field"
               >
-                <option value="low">Low</option>
-                <option value="medium">Medium</option>
-                <option value="high">High</option>
-                <option value="urgent">Urgent</option>
+                <option value="low">Baixa</option>
+                <option value="medium">Média</option>
+                <option value="high">Alta</option>
+                <option value="urgent">Urgente</option>
               </select>
             </div>
 
@@ -278,22 +278,22 @@ const TaskModal = ({ isOpen, onClose, task, onSave, projects, sprints }) => {
                 onChange={(e) => setFormData({...formData, status: e.target.value})}
                 className="input-field"
               >
-                <option value="todo">To Do</option>
-                <option value="in_progress">In Progress</option>
-                <option value="review">Review</option>
-                <option value="done">Done</option>
+                <option value="todo">A Fazer</option>
+                <option value="in_progress">Em Progresso</option>
+                <option value="review">Em Revisão</option>
+                <option value="done">Concluído</option>
               </select>
             </div>
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Project</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Projeto</label>
             <select
               value={formData.project_id}
               onChange={(e) => setFormData({...formData, project_id: e.target.value, sprint_id: ''})}
               className="input-field"
             >
-              <option value="">No Project</option>
+              <option value="">Nenhum Projeto</option>
               {projects.map(project => (
                 <option key={project.id} value={project.id}>{project.name}</option>
               ))}
@@ -308,7 +308,7 @@ const TaskModal = ({ isOpen, onClose, task, onSave, projects, sprints }) => {
                 onChange={(e) => setFormData({...formData, sprint_id: e.target.value})}
                 className="input-field"
               >
-                <option value="">No Sprint</option>
+                <option value="">Nenhum Sprint</option>
                 {filteredSprints.map(sprint => (
                   <option key={sprint.id} value={sprint.id}>{sprint.name}</option>
                 ))}
@@ -318,7 +318,7 @@ const TaskModal = ({ isOpen, onClose, task, onSave, projects, sprints }) => {
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Due Date</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Data de Vencimento</label>
               <input
                 type="date"
                 value={formData.due_date}
@@ -328,7 +328,7 @@ const TaskModal = ({ isOpen, onClose, task, onSave, projects, sprints }) => {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Story Points</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Pontos da História</label>
               <input
                 type="number"
                 min="1"
@@ -347,13 +347,13 @@ const TaskModal = ({ isOpen, onClose, task, onSave, projects, sprints }) => {
               onClick={onClose}
               className="flex-1 px-4 py-2 text-gray-700 bg-gray-100 rounded-xl hover:bg-gray-200 transition-colors"
             >
-              Cancel
+              Cancelar
             </button>
             <button
               type="submit"
               className="flex-1 px-4 py-2 bg-purple-600 text-white rounded-xl hover:bg-purple-700 transition-colors"
             >
-              {task ? 'Update' : 'Create'}
+              {task ? 'Atualizar' : 'Criar'}
             </button>
           </div>
         </form>
