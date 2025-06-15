@@ -519,8 +519,8 @@ const WeekCalendar = ({ tasks, onTaskEdit, onTaskDelete, onTaskStatusChange, onT
                       <svg className="w-12 h-12 mx-auto mb-4 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                       </svg>
-                      <p className="text-base font-medium">Drop tasks here</p>
-                      <p className="text-sm text-gray-400 mt-2">or create new ones</p>
+                      <p className="text-base font-medium">Solte tarefas aqui</p>
+                      <p className="text-sm text-gray-400 mt-2">ou crie novas</p>
                     </div>
                   )}
                   {dayTasks.map(task => (
