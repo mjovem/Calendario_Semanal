@@ -128,10 +128,10 @@ const TaskCard = ({ task, onEdit, onDelete, onStatusChange, onDragStart, isDragg
       {/* Priority and Status badges */}
       <div className="flex gap-1 mb-2">
         <span className={`px-2 py-1 rounded-full text-xs font-medium border ${priorityColors[task.priority]}`}>
-          {task.priority.charAt(0).toUpperCase() + task.priority.slice(1)}
+          {priorityLabels[task.priority]}
         </span>
         <span className={`px-2 py-1 rounded-full text-xs font-medium border ${statusColors[task.status]}`}>
-          {task.status === 'in_progress' ? 'Progress' : task.status.charAt(0).toUpperCase() + task.status.slice(1)}
+          {statusLabels[task.status]}
         </span>
       </div>
       
@@ -144,17 +144,17 @@ const TaskCard = ({ task, onEdit, onDelete, onStatusChange, onDragStart, isDragg
         }}
         className="w-full text-xs border rounded-md px-2 py-1 bg-white focus:ring-2 focus:ring-purple-500 focus:border-transparent mb-2"
       >
-        <option value="todo">To Do</option>
-        <option value="in_progress">In Progress</option>
-        <option value="review">Review</option>
-        <option value="done">Done</option>
+        <option value="todo">A Fazer</option>
+        <option value="in_progress">Em Progresso</option>
+        <option value="review">Em Revisão</option>
+        <option value="done">Concluído</option>
       </select>
       
       {/* Due date */}
       {task.due_date && (
         <div className="text-center">
           <span className="text-xs text-gray-500 bg-gray-50 px-2 py-1 rounded text-center block">
-            Due: {formatDate(task.due_date)}
+            Vencimento: {formatDate(task.due_date)}
           </span>
         </div>
       )}
