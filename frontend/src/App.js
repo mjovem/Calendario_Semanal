@@ -658,7 +658,7 @@ const ProjectView = ({
                   type="submit"
                   className="flex-1 px-4 py-2 bg-purple-600 text-white rounded-xl hover:bg-purple-700 transition-colors"
                 >
-                  Create
+                  Criar
                 </button>
               </div>
             </form>
