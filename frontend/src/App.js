@@ -617,14 +617,14 @@ const ProjectView = ({
             <h3 className="text-xl font-semibold text-gray-900 mb-4">Criar Novo Projeto</h3>
             <form onSubmit={handleCreateProject} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Project Name *</label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Nome do Projeto *</label>
                 <input
                   type="text"
                   required
                   value={projectForm.name}
                   onChange={(e) => setProjectForm({...projectForm, name: e.target.value})}
                   className="input-field"
-                  placeholder="Enter project name"
+                  placeholder="Digite o nome do projeto"
                 />
               </div>
               <div>
