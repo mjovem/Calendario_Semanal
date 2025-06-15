@@ -503,13 +503,13 @@ const WeekCalendar = ({ tasks, onTaskEdit, onTaskDelete, onTaskStatusChange, onT
               >
                 <div className="font-semibold text-gray-900 mb-6 text-center">
                   <div className="text-base text-gray-600 mb-2 font-medium">
-                    {date.toLocaleDateString('en-US', { weekday: 'long' })}
+                    {date.toLocaleDateString('pt-BR', { weekday: 'long' })}
                   </div>
                   <div className={`text-4xl font-bold ${isToday ? 'text-purple-600' : 'text-gray-900'} mb-1`}>
                     {date.getDate()}
                   </div>
                   <div className="text-sm text-gray-500">
-                    {date.toLocaleDateString('en-US', { month: 'short' })}
+                    {date.toLocaleDateString('pt-BR', { month: 'short' })}
                   </div>
                 </div>
                 
