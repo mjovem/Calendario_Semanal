@@ -638,7 +638,7 @@ const ProjectView = ({
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Color</label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Cor</label>
                 <input
                   type="color"
                   value={projectForm.color}
