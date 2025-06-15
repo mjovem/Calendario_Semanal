@@ -7,6 +7,16 @@ const API = `${BACKEND_URL}/api`;
 
 // Utility functions
 const formatDate = (date) => {
+  // Handle date string properly to avoid timezone issues
+  if (typeof date === 'string') {
+    const [year, month, day] = date.split('-');
+    const dateObj = new Date(year, month - 1, day); // month is 0-indexed
+    return dateObj.toLocaleDateString('en-US', { 
+      weekday: 'short', 
+      month: 'short', 
+      day: 'numeric' 
+    });
+  }
   return new Date(date).toLocaleDateString('en-US', { 
     weekday: 'short', 
     month: 'short', 
