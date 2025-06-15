@@ -51,6 +51,20 @@ const statusColors = {
   done: 'bg-green-100 text-green-800 border-green-200'
 };
 
+const priorityLabels = {
+  low: 'Baixa',
+  medium: 'Média',
+  high: 'Alta',
+  urgent: 'Urgente'
+};
+
+const statusLabels = {
+  todo: 'A Fazer',
+  in_progress: 'Em Progresso',
+  review: 'Em Revisão',
+  done: 'Concluído'
+};
+
 // Components
 const TaskCard = ({ task, onEdit, onDelete, onStatusChange, onDragStart, isDraggable = false }) => {
   const handleDragStart = (e) => {
