@@ -543,7 +543,7 @@ const WeekCalendar = ({ tasks, onTaskEdit, onTaskDelete, onTaskStatusChange, onT
       
       <div className="mt-8 text-center">
         <p className="text-sm text-gray-500">
-          💡 <strong>Tip:</strong> Drag tasks between days to change their due dates
+          💡 <strong>Dica:</strong> Arraste tarefas entre os dias para alterar suas datas de vencimento
         </p>
       </div>
     </div>
