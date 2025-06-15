@@ -857,6 +857,7 @@ function App() {
             onTaskEdit={handleEditTask}
             onTaskDelete={handleDeleteTask}
             onTaskStatusChange={handleTaskStatusChange}
+            onTaskDateChange={handleTaskDateChange}
           />
         )}
 
