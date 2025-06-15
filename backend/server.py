@@ -150,6 +150,10 @@ class SprintCreate(BaseModel):
 @api_router.post("/tasks", response_model=Task)
 async def create_task(task: TaskCreate):
     task_dict = task.dict()
+    # Convert date objects to ISO format strings
+    if task_dict.get('due_date'):
+        task_dict['due_date'] = task_dict['due_date'].isoformat() if isinstance(task_dict['due_date'], date) else task_dict['due_date']
+    
     task_obj = Task(**task_dict)
     await db.tasks.insert_one(task_obj.dict())
     return task_obj
