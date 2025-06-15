@@ -454,7 +454,7 @@ const WeekCalendar = ({ tasks, onTaskEdit, onTaskDelete, onTaskStatusChange, onT
                     {date.getDate()}
                   </div>
                   <div className="text-sm text-gray-500">
-                    {date.toLocaleDateString('en-US', { month: 'short' })}
+                    {date.toLocaleDateString('pt-BR', { month: 'short' })}
                   </div>
                 </div>
                 
