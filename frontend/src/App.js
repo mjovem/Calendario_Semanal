@@ -680,7 +680,7 @@ const ProjectView = ({
                 <p className="text-gray-600 mb-4">{project.description}</p>
               )}
               <div className="text-sm text-gray-500">
-                {tasks.filter(task => task.project_id === project.id).length} tasks
+                {tasks.filter(task => task.project_id === project.id).length} tarefas
               </div>
             </div>
           ))}
