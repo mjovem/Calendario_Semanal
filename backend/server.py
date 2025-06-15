@@ -183,6 +183,10 @@ async def update_task(task_id: str, task_update: TaskUpdate):
         raise HTTPException(status_code=404, detail="Task not found")
     
     update_data = task_update.dict(exclude_unset=True)
+    # Convert date objects to ISO format strings
+    if update_data.get('due_date'):
+        update_data['due_date'] = update_data['due_date'].isoformat() if isinstance(update_data['due_date'], date) else update_data['due_date']
+    
     update_data["updated_date"] = datetime.utcnow()
     
     await db.tasks.update_one({"id": task_id}, {"$set": update_data})
