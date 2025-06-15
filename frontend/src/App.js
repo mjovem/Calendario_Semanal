@@ -628,13 +628,13 @@ const ProjectView = ({
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Descrição</label>
                 <textarea
                   value={projectForm.description}
                   onChange={(e) => setProjectForm({...projectForm, description: e.target.value})}
                   className="input-field"
                   rows="3"
-                  placeholder="Enter project description"
+                  placeholder="Digite a descrição do projeto"
                 />
               </div>
               <div>
