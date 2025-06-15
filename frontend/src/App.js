@@ -751,6 +751,15 @@ function App() {
     }
   };
 
+  const handleTaskDateChange = async (taskId, newDate) => {
+    try {
+      await axios.put(`${API}/tasks/${taskId}`, { due_date: newDate });
+      await fetchTasks();
+    } catch (error) {
+      console.error('Error updating task date:', error);
+    }
+  };
+
   const handleEditTask = (task) => {
     setEditingTask(task);
     setShowTaskModal(true);
